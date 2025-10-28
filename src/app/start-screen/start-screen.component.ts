@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Game } from 'src/models/game';
+import { collection, addDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-start-screen',
@@ -8,11 +11,21 @@ import { Router } from '@angular/router';
 })
 export class StartScreenComponent {
 
-  constructor(private router: Router) { }
+  constructor(private firestore: Firestore, private router: Router) { }
 
   newGame() {
-    // Start Game
-    this.router.navigateByUrl('/game')
-  }
+  const game = new Game();
+
+  const gamesRef = collection(this.firestore, 'games');
+
+  addDoc(gamesRef, game.toJson())
+    .then((gameInfo) => {
+      console.log('Spiel gespeichert mit ID:', gameInfo.id);
+      this.router.navigateByUrl('/game/' + gameInfo.id);
+    })
+    .catch((error) => {
+      console.error('Fehler beim Speichern:', error);
+    });
+}
 
 }
