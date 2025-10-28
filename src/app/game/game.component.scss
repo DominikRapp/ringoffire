@@ -1,11 +1,36 @@
+$black: #0c0c0c;
+$red: #e11d2f;
+$orange: #f97316;
+$yellow: #fde047;
+$gold: #d4af37;
+$gray: #8b8b8b;
+$brown: #7a4b2e;
+$white: #ffffff;
+
 .field {
     height: 100vh;
     width: 100vw;
     max-width: 100%;
-    background-image: url(../../assets/img/board.jpg);
     display: flex;
     align-items: center;
     justify-content: center;
+    background:
+        radial-gradient(80vmax 60vmax at 50% 120%, rgba($red, .18), transparent 60%),
+        radial-gradient(60vmax 60vmax at 10% 10%, rgba($orange, .12), transparent 55%),
+        radial-gradient(45vmax 45vmax at 90% 20%, rgba($yellow, .10), transparent 50%),
+        linear-gradient(180deg, #0b0b0b 0%, #111 60%, #0b0b0b 100%);
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(120vmax 80vmax at 50% -10%,
+                rgba($gold, .10), rgba($orange, .06) 40%, transparent 65%);
+        mix-blend-mode: screen;
+        opacity: .9;
+    }
 }
 
 .card-stack {
@@ -57,13 +82,12 @@
 .player-position {
     position: absolute;
     right: 0;
-    z-index: 1;
 }
 
 .button-add {
     position: absolute;
-    right: 32px;
-    bottom: 32px;
+    right: 100px;
+    bottom: 180px;
 }
 
 .pin-bottom {
@@ -71,4 +95,157 @@
     bottom: 32px;
     left: 100px;
     right: 100px;
+
+    @media (max-width: 720px) {
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+    }
+}
+
+.scroll-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 130px;
+
+    app-player-mobile {
+        margin-left: 8px;
+    }
+}
+
+/* Palette (wie im restlichen Theme) */
+$black: #0c0c0c;
+$red: #e11d2f;
+$orange: #f97316;
+$yellow: #fde047;
+$gold: #d4af37;
+$white: #ffffff;
+
+/* === Fire-FAB === */
+.button-add {
+    /* Position bleibt wie gehabt (right/bottom via bestehender Klasse) */
+
+    /* Größe/Shape */
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Grundfläche: warmer Verlauf + „glassy“ Kante */
+    background:
+        linear-gradient(180deg, rgba($white, .28), rgba($white, 0)) padding-box,
+        linear-gradient(135deg, $gold, $yellow 35%, $orange 65%, $red) border-box;
+    border: 2px solid transparent;
+
+    /* Tiefe/Glow */
+    box-shadow:
+        0 12px 24px rgba($red, .30),
+        0 4px 8px rgba($black, .55),
+        inset 0 0 0 1px rgba($white, .05);
+
+    /* feiner Schimmer oben links */
+    position: absolute;
+    /* bleibt absolut durch deine Klasse */
+    isolation: isolate;
+    /* damit Pseudos sauber drüber liegen */
+    transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+
+    /* Schimmer-Overlay */
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background:
+            radial-gradient(120% 160% at -20% -30%, rgba($white, .55), transparent 40%),
+            radial-gradient(160% 120% at 120% 120%, rgba($yellow, .2), transparent 45%);
+        mix-blend-mode: screen;
+        pointer-events: none;
+        opacity: .9;
+    }
+
+    /* dezenter Focus-Ring (Tastatur) */
+    &:focus-visible {
+        outline: none;
+        box-shadow:
+            0 0 0 4px rgba($gold, .35),
+            0 12px 24px rgba($red, .30),
+            0 4px 8px rgba($black, .55);
+    }
+
+    /* Hover/Active: kleine, ruhige Bewegung */
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 16px 30px rgba($red, .35),
+            0 6px 12px rgba($black, .55),
+            inset 0 0 0 1px rgba($white, .06);
+        filter: saturate(1.05);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow:
+            0 10px 18px rgba($red, .28),
+            0 3px 6px rgba($black, .6),
+            inset 0 0 0 1px rgba($white, .06);
+        filter: saturate(1);
+    }
+
+    /* Icon: klarer Kontrast */
+    mat-icon {
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        color: $black;
+        /* auf hellem Verlauf gut lesbar */
+    }
+
+    /* Optional: Ripple etwas wärmer tönen (Angular Material/MDC) */
+    /* greift je nach Material-Version; harmless wenn unbekannt */
+    --mdc-ripple-press-opacity: 0.18;
+
+    /* Disabled-State (falls du ihn nutzt) */
+    &:disabled,
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: .7;
+        filter: grayscale(.15);
+        box-shadow:
+            0 6px 12px rgba($black, .5),
+            inset 0 0 0 1px rgba($white, .04);
+    }
+}
+
+/* Responsive Größenanpassung */
+@media (max-width: 720px) {
+    .button-add {
+        width: 56px;
+        height: 56px;
+        right: 50px;
+
+        mat-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+        }
+    }
+}
+
+/* Weniger Bewegung, wenn gewünscht */
+@media (prefers-reduced-motion: reduce) {
+    .button-add {
+        transition: none;
+    }
 }
