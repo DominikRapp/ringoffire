@@ -1,3 +1,4 @@
 <div class="player" [class.player-active]="playerActive" [attr.data-initial]="(name || '?') | slice:0:1">
-    <span>{{ name }}</span>
+    <img src="assets/img/profile/{{ image }}">
+    <span class="player-name">{{ name }}</span>
 </div>

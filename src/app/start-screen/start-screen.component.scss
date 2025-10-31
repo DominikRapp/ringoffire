@@ -1,4 +1,3 @@
-/* ===== Feuer–Palette ===== */
 $black: #0c0c0c;
 $red: #e11d2f;
 $orange: #f97316;
@@ -8,12 +7,10 @@ $gray: #8b8b8b;
 $brown: #7a4b2e;
 $white: #ffffff;
 
-/* Fluid helpers */
 @function clamp-fluid($min, $vw, $max) {
     @return clamp($min, $vw, $max);
 }
 
-/* ===== Base Reset (klein) ===== */
 * {
     box-sizing: border-box;
 }
@@ -30,7 +27,6 @@ body {
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* ===== Start Screen Layout ===== */
 .start-screen {
     width: 100vw;
     height: 100vh;
@@ -43,15 +39,12 @@ body {
     overflow: hidden;
     padding: clamp-fluid(1rem, 2vw, 2rem);
 
-    /* --- Hintergrund: glühender Ring + Lava-Glow --- */
     background:
-        /* feine Textur */
         radial-gradient(1200px 1200px at 50% 120%, rgba($brown, .15), transparent 60%),
         radial-gradient(800px 800px at 10% 10%, rgba($gray, .08), transparent 60%),
         radial-gradient(600px 600px at 90% 20%, rgba($red, .08), transparent 60%),
         linear-gradient(180deg, #0b0b0b, #0a0a0a 30%, #111 70%, #0a0a0a);
 
-    /* Glow-Overlays via pseudos */
     &::before,
     &::after {
         content: "";
@@ -60,9 +53,7 @@ body {
         pointer-events: none;
     }
 
-    /* rotierender Feuer-Ring (Glow) */
     &::before {
-        /* Ein glühender Ring mit weichem Rand */
         background:
             radial-gradient(closest-side, rgba($yellow, .1), rgba($yellow, .06) 30%, transparent 32%) center/55vmin 55vmin no-repeat,
             conic-gradient(from 0deg,
@@ -80,9 +71,7 @@ body {
         transform-origin: center;
     }
 
-    /* Funken/Asche (Embers) */
     &::after {
-        /* viele kleine, weiche Punkte die aufsteigen */
         --embers:
             radial-gradient(8px 8px at 50% 50%, rgba($yellow, .9), rgba($orange, .2) 60%, transparent 61%),
             radial-gradient(6px 6px at 50% 50%, rgba($gold, .8), rgba($red, .15) 60%, transparent 61%),
@@ -90,7 +79,6 @@ body {
             radial-gradient(4px 4px at 50% 50%, rgba($white, .7), rgba($yellow, .05) 60%, transparent 61%);
         background-image: var(--embers), var(--embers), var(--embers), var(--embers);
         background-repeat: no-repeat;
-        /* Start-Positionen (verteilt) */
         background-position:
             10% 110%, 30% 120%, 50% 115%, 70% 118%,
             20% 130%, 40% 128%, 60% 132%, 80% 126%;
@@ -100,7 +88,6 @@ body {
         opacity: .8;
     }
 
-    /* ===== H1 ===== */
     h1 {
         margin: 0;
         text-transform: uppercase;
@@ -110,23 +97,16 @@ body {
         line-height: 1;
         position: relative;
         padding-inline: .8rem;
-
-        /* feuriger Verlauf im Text */
         background: linear-gradient(180deg, $yellow 0%, $orange 35%, $red 65%, $brown 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-
-        /* Glut-Schimmer */
         text-shadow:
             0 0 12px rgba($yellow, .25),
             0 0 30px rgba($orange, .25),
             0 0 60px rgba($red, .2);
-
-        /* leichte Flacker-Animation */
         animation: heat-flicker 4s ease-in-out infinite;
 
-        /* Kartensymbole schweben */
         &::after {
             content: "♠  ♣  ♥  ♦";
             position: absolute;
@@ -145,7 +125,6 @@ body {
         }
     }
 
-    /* ===== Button Box (leichtes Glas) ===== */
     .start-label-box {
         position: relative;
         padding: 1rem;
@@ -158,7 +137,6 @@ body {
             inset 0 0 50px rgba($white, .02);
     }
 
-    /* ===== Button ===== */
     button {
         appearance: none;
         border: none;
@@ -173,7 +151,6 @@ body {
         position: relative;
         z-index: 0;
 
-        /* Gold-zu-Rot-Verlauf + Glanzkante */
         background:
             linear-gradient(180deg, rgba($white, .35), rgba($white, 0)) padding-box,
             linear-gradient(90deg, $gold, $yellow, $orange, $red) border-box;
@@ -182,7 +159,6 @@ body {
             0 10px 28px rgba($red, .35),
             0 3px 0 rgba($brown, .8) inset;
 
-        /* Schimmer-Highlight */
         &::before {
             content: "";
             position: absolute;
@@ -194,7 +170,6 @@ body {
             pointer-events: none;
         }
 
-        /* Flammenunterstrich */
         &::after {
             content: "";
             position: absolute;
@@ -232,67 +207,38 @@ body {
         }
     }
 
-    /* ===== Dekor: Kartenfächer (nur mit CSS) ===== */
-    /* Ein subtiler Kartenfächer im unteren Bereich, ohne extra HTML */
     .cards-fan {
         display: none;
-        /* Placeholder falls du später echtes Markup nutzt */
     }
 
     &::marker {
         content: none;
     }
 
-    /* just in case */
-
-    /* Kartenfächer via weiterer Pseudo-Ebene */
     &>._fan {
         display: none;
     }
 
-    /* (keine Markup-Änderung nötig) */
-    /* wir „malen“ den Fächer mit einem zusätzlichen, absolut positionierten Layer: */
     .start-screen__cards {
         display: none;
-        /* reserved */
     }
 
-    /* stattdessen: noch ein Pseudo, das schmale helle Streifen wie Karten zeigt */
-    &:has(h1) {
-        /* scoped, moderne Browser */
-        /* oben nichts */
-    }
-
-    /* nutze ein zusätzliches pseudo über :before belegt – daher hier ein inner shadow trick auf dem Container: */
     box-shadow: inset 0 -140px 200px -80px rgba($black, .9);
 
-    /* Ein radialer „Kartenfächer“-Eindruck am unteren Rand */
     &::selection {
         background: rgba($red, .35);
         color: $white;
     }
 }
 
-/* Unterkante: Fächer-Simulation */
 .start-screen::marker {
     content: "";
 }
 
-.start-screen::before {
-    /* schon belegt (Ring) */
-}
-
-.start-screen::after {
-    /* schon Embers */
-}
-
-/* Fächer-Layer zusätzlich via shadow-only pseudo auf innerem Gradient */
 .start-screen .fan-shadow {
     display: none;
-    /* optional future hook */
 }
 
-/* ===== Responsiveness Tweaks ===== */
 @media (max-width: 640px) {
     .start-screen {
         justify-content: center;
@@ -316,7 +262,6 @@ body {
     }
 }
 
-/* ===== Motion Preferences ===== */
 @media (prefers-reduced-motion: reduce) {
 
     .start-screen::before,
@@ -327,7 +272,6 @@ body {
     }
 }
 
-/* ===== Keyframes ===== */
 @keyframes spin {
     to {
         transform: rotate(360deg);

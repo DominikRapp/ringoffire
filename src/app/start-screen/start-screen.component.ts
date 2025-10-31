@@ -14,18 +14,18 @@ export class StartScreenComponent {
   constructor(private firestore: Firestore, private router: Router) { }
 
   newGame() {
-  const game = new Game();
+    const game = new Game();
 
-  const gamesRef = collection(this.firestore, 'games');
+    const gamesRef = collection(this.firestore, 'games');
 
-  addDoc(gamesRef, game.toJson())
-    .then((gameInfo) => {
-      console.log('Spiel gespeichert mit ID:', gameInfo.id);
-      this.router.navigateByUrl('/game/' + gameInfo.id);
-    })
-    .catch((error) => {
-      console.error('Fehler beim Speichern:', error);
-    });
-}
+    addDoc(gamesRef, game.toJson())
+      .then((gameInfo) => {
+        // console.log('Spiel gespeichert mit ID:', gameInfo.id);
+        this.router.navigateByUrl('/game/' + gameInfo.id);
+      })
+      .catch((error) => {
+        // console.error('Fehler beim Speichern:', error);
+      });
+  }
 
 }

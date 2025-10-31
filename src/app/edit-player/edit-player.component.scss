@@ -1,0 +1,181 @@
+$black: #0c0c0c;
+$red: #e11d2f;
+$orange: #f97316;
+$yellow: #fde047;
+$gold: #d4af37;
+$white: #ffffff;
+
+:host ::ng-deep .mat-mdc-dialog-surface {
+    background: linear-gradient(180deg, rgba($white, .06), rgba($white, .02));
+    border: 1px solid rgba($gold, .28);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow:
+        0 18px 42px rgba($black, .6),
+        0 4px 12px rgba($black, .5),
+        inset 0 0 60px rgba($white, .02);
+    color: $white;
+}
+
+h1[mat-dialog-title] {
+    margin: 0 0 1rem 0;
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    letter-spacing: .02em;
+
+    background: linear-gradient(180deg, $yellow 0%, $orange 40%, $red 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow:
+        0 0 10px rgba($orange, .25),
+        0 0 20px rgba($red, .18);
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 12px 16px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 4px 0 16px;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba($black, .5);
+        border-radius: 999px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, $gold, $orange, $red);
+        border-radius: 999px;
+    }
+}
+
+.profile-picture {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    display: block;
+    margin-inline: auto;
+    position: relative;
+
+    box-shadow:
+        0 12px 26px rgba($red, .32),
+        0 2px 6px rgba($black, .6),
+        inset 0 0 0 1px rgba($white, .08);
+
+    background: radial-gradient(circle at 30% 30%,
+            rgba($white, .18) 0%,
+            rgba($black, .6) 60%);
+
+    transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+
+    &:hover {
+        filter: brightness(1.15);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow:
+            0 16px 32px rgba($red, .38),
+            0 4px 10px rgba($black, .7),
+            inset 0 0 0 1px rgba($white, .1);
+    }
+
+    &:active {
+        transform: scale(0.98);
+        filter: brightness(1);
+    }
+}
+
+[mat-dialog-actions] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .5rem;
+    margin-top: 1rem;
+
+    .dialog-btn {
+        border-radius: 999px;
+        min-height: 40px;
+        padding: 0 .9rem;
+        font-weight: 700;
+        letter-spacing: .02em;
+        text-transform: none;
+        transition: box-shadow 120ms ease, transform 120ms ease, filter 120ms ease;
+        color: $white;
+    }
+
+    .dialog-btn-cancel {
+        background:
+            linear-gradient(180deg, rgba($white, .15), rgba($white, 0)) padding-box,
+            linear-gradient(90deg, rgba($gold, .5), rgba($orange, .4)) border-box;
+        border: 2px solid transparent;
+        color: $white;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba($black, .6);
+            filter: saturate(1.05);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    .dialog-btn-delete {
+        background:
+            linear-gradient(90deg, $red, $orange 50%, $yellow 90%) border-box;
+        border: 2px solid transparent;
+        color: $black;
+        box-shadow: 0 10px 20px rgba($red, .28);
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 14px 24px rgba($red, .34),
+                0 0 12px rgba($red, .5);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    h1[mat-dialog-title] {
+        font-size: 1rem;
+    }
+
+    .profile-grid {
+        grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+        gap: 10px 12px;
+        max-height: 220px;
+    }
+
+    .profile-picture {
+        width: 60px;
+        height: 60px;
+    }
+
+    [mat-dialog-actions] .dialog-btn {
+        min-height: 36px;
+        padding: 0 .75rem;
+        font-size: .9rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .profile-picture,
+    [mat-dialog-actions] .dialog-btn {
+        transition: none;
+    }
+}

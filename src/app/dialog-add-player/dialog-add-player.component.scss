@@ -1,4 +1,3 @@
-/* ===== Palette (konsistent zum Rest) ===== */
 $black: #0c0c0c;
 $red: #e11d2f;
 $orange: #f97316;
@@ -7,7 +6,6 @@ $gold: #d4af37;
 $gray: #8b8b8b;
 $white: #ffffff;
 
-/* ===== Dialog Surface ===== */
 .mat-mdc-dialog-surface {
     background:
         linear-gradient(180deg, rgba($white, .06), rgba($white, .02));
@@ -21,7 +19,6 @@ $white: #ffffff;
     color: $white;
 }
 
-/* ===== Title ===== */
 [mat-dialog-title],
 h1[mat-dialog-title] {
     margin: 0 0 .25rem 0;
@@ -37,38 +34,32 @@ h1[mat-dialog-title] {
         0 0 20px rgba($red, .18);
 }
 
-/* ===== Content ===== */
 [mat-dialog-content] {
     p {
         margin: 0 0 .75rem 0;
         color: rgba($white, .9);
     }
 
-    /* Form Field */
     .mat-mdc-form-field {
         width: 100%;
     }
 
-    /* Label */
     .mdc-floating-label,
     .mat-mdc-floating-label {
         color: rgba($white, .85);
     }
 
-    /* Input-Hintergrund + Text */
     .mdc-text-field--filled .mdc-text-field__input,
     input[matInput] {
         color: $black;
         caret-color: $gold;
     }
 
-    /* Filled-Variante leicht abdunkeln */
     .mdc-text-field--filled {
         background: rgba($black, .35);
         border-radius: 12px 12px 0 0;
     }
 
-    /* Outline/Underline akzentuieren */
     .mdc-line-ripple::after,
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,
@@ -76,25 +67,21 @@ h1[mat-dialog-title] {
         border-color: rgba($gold, .6) !important;
     }
 
-    /* Focus-Glow dezent */
     .mdc-text-field--focused {
         box-shadow: 0 0 0 3px rgba($gold, .22);
         border-radius: 12px;
     }
 
-    /* Platzhalterfarbe */
     ::placeholder {
         color: rgba($white, .55);
     }
 }
 
-/* ===== Actions / Buttons ===== */
 [mat-dialog-actions] {
     display: flex;
     gap: .5rem;
     justify-content: flex-end;
 
-    /* Basis-Buttonlook */
     .mat-mdc-button {
         border-radius: 999px;
         padding: 0 .9rem;
@@ -104,9 +91,7 @@ h1[mat-dialog-title] {
         transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
     }
 
-    /* Cancel: Outline in Gold/Orange */
     .mat-mdc-button:first-child {
-        /* um .order beizubehalten, greifen wir via first-child */
         background:
             linear-gradient(180deg, rgba($white, .2), rgba($white, 0)) padding-box,
             linear-gradient(90deg, $gold, $orange) border-box;
@@ -124,7 +109,6 @@ h1[mat-dialog-title] {
         }
     }
 
-    /* OK: gefüllt (Gold → Rot), disabled respektieren */
     .mat-mdc-button:last-child {
         background:
             linear-gradient(90deg, $gold, $yellow 40%, $orange 70%, $red) border-box;
@@ -151,7 +135,6 @@ h1[mat-dialog-title] {
     }
 }
 
-/* ===== Fokus-States barrierefrei ===== */
 [mat-dialog-actions] .mat-mdc-button:focus-visible {
     outline: none;
     box-shadow:
@@ -159,14 +142,11 @@ h1[mat-dialog-title] {
         0 8px 16px rgba($black, .5);
 }
 
-/* ===== Kleine Details ===== */
 .mat-mdc-dialog-content {
-    /* leichtes Top/Bottom-Padding angleichen */
     padding-top: .25rem;
     padding-bottom: .5rem;
 }
 
-/* ===== Responsive: engere Screens ===== */
 @media (max-width: 480px) {
     .mat-mdc-dialog-surface {
         border-radius: 14px !important;
@@ -182,7 +162,6 @@ h1[mat-dialog-title] {
     }
 }
 
-/* ===== Weniger Bewegung ===== */
 @media (prefers-reduced-motion: reduce) {
     [mat-dialog-actions] .mat-mdc-button {
         transition: none;
